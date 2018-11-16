@@ -19,6 +19,6 @@
     "postcss-cli": "^5.0.1"
   },
   "scripts": {
-    "watch:sass": "node-sass sass/main.scss css/styles.css -w"
+    "compile:sass": "node-sass sass/main.scss css/styles.css -w"
   }
 }

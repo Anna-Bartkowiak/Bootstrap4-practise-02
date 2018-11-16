@@ -1,3 +1,66 @@
+$color-white: #fff;
+$color-grey: #6c6f73;
+$color-grey-lighter: #f0f0f0;
+$color-grey-light: #b5b7b9;
+$color-grey-dark: #333;
+
+$color-blue-light: #718fa9;
+
+
+// MEDIA QUERY MANAGER
+/*
+0 - 600px:      Phone
+600 - 900px:    Tablet portrait
+900 - 1200px;   Tablet landscape
+[1200 - 1800] is where our normal styles apply
+1800 + :        Big desktop
+
+Breakpoint argument choices:
+- phone
+- tab-port
+- tab-land
+- big-desktop
+
+ORDER: base + typography > general layout + grid > page layout > components
+
+1em = 16px
+*/
+
+@mixin respond($breakpoint) {
+    @if $breakpoint == phone {
+        @media only screen and (max-width: 37.5em) { @content };        //600px
+    }
+
+    @if $breakpoint == tab-port {
+        @media only screen and (max-width: 56.25em) { @content };         //900px
+    }
+
+    @if $breakpoint == tab-land {
+        @media only screen and (max-width: 75em) { @content };        //1200px
+    }
+
+    @if $breakpoint == big-desktop {
+        @media only screen and (min-width: 112.5em) { @content };        //1800
+    }
+}
+
+html {
+    // This defines what 1rem is
+    font-size: 100%; //1 rem = 16px
+
+    @include respond(tab-land) {  //width < 1200?
+        font-size: 87.5%; //1 rem = 14px, 14/16 = 87.5%
+    }
+
+    @include respond(tab-port) {  //width < 900?
+        font-size: 62.5%; //1 rem = 10px, 10/16 = 62.5%
+    }
+
+    @include respond(big-desktop) {
+        font-size: 112.5%; //1rem = 18px, 18/16 = 100.125%
+    }
+}
+
 html,
 body {
     height: 100%;
@@ -6,18 +69,32 @@ body {
 body {
     -webkit-font-smoothing: antialiased;
     text-rendering: optimizeLegibility;
-    color: #6c6f73;
+    color: $color-grey;
 }
 
 h1,h2,h3,h4,h5 {
-    color: #333;
+    color: $color-grey-dark;
+}
+
+
+
+h2 {
+    font-size: 2.5rem;
+
+    @include respond (tab-port) {
+        margin-bottom: 1.2rem;
+    }
 }
 
 h6 {
     text-transform: uppercase;
     font-weight: bold;
-    font-size: .8rem;
+    font-size: 1.3rem;
     letter-spacing: .1rem;
+
+    @include respond (tab-port) {
+        margin-bottom: 1rem;
+    }
 }
 
 img {
@@ -25,28 +102,41 @@ img {
 }
 
 .blockquote {
-    font-size: 1.6rem;
-    color: #333;
+    font-size: 2.5rem;
+    color: $color-grey-dark;
     border: none;
     padding: 0;
 }
 
 .blockquote-footer {
-    margin: 1rem 0 0;
+    font-size: 2rem;
+    margin: 1.6rem 0 0;
+
+    @include respond (tab-port) {
+        font-size: 1.4rem;
+    }
 }
 
 #stage {
     background: url('https://images.unsplash.com/photo-1499988921418-b7df40ff03f9?ixlib=rb-0.3.5&ixid=eyJhcHBfaWQiOjEyMDd9&s=b9b0bd8bc4bc9635191c7200f4e2be1d&auto=format&fit=crop&w=1350&q=80') center center no-repeat;
     background-size: cover;
+    min-height: 30rem;
     height: 35%;
     width: 100%;
-    border-bottom: 6px solid #bba690;
+
+    @include respond (tab-port) {
+        min-height: 25rem;
+    }
 }
 
 #stage-caption {
     font-size: 1.4rem;
     font-weight: 200;
     max-width: 40rem;
+
+    @include respond (tab-port) {
+        padding: 4.5rem 4rem;
+    }
 }
 
 #stage-caption {
@@ -56,19 +146,26 @@ img {
         text-transform: uppercase;
     }
     
+    p {
+        margin: 0;
+    }
 }
 
 .feature-content {
     padding: 6rem 0;
     overflow: hidden;
+
+    @include respond (tab-port) {
+        padding: 4.5rem 3rem;
+    }
 }
 
 .feature-dark {
-    background: #262f36;
+    background: $color-grey-dark;
 }
 
 .feature-alt {
-    background: #f0f0f0;
+    background: $color-grey-lighter;
 }
 
 #feature-four {
@@ -85,27 +182,27 @@ img {
 }
 
 #main-footer {
-    background-color: #262f36;
-    color: #fff;
+    background-color: $color-grey-dark;
+    color: $color-white;
     padding: 6rem 0;
     font-size: .8rem;
 }
 
 #main-footer {
     h6 {
-        color: #718fa9;
+        color: $color-blue-light;
     }
 } 
 
 #main-footer {
     a {
-        color: #6c6f73;
+        color: $color-grey;
     }
 } 
 
 #main-footer {
     a:hover {
-        color: #b5b7b9;
+        color: $color-grey-light;
     }
 } 
 
